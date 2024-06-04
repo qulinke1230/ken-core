@@ -11,7 +11,7 @@
 
 namespace KenCore\Service;
 
-use Ebaweb\Core\Traits\Error;
+use KenCore\Traits\Error;
 use Hyperf\Contract\LengthAwarePaginatorInterface;
 use Hyperf\DbConnection\Model\Model as BaseModel;
 use Hyperf\Di\Annotation\Inject;
