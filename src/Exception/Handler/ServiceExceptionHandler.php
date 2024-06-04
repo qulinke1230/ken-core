@@ -14,6 +14,7 @@ namespace KenCore\Exception\Handler;
 use KenCore\Constants\ErrorCodeEnum;
 use Hyperf\ExceptionHandler\ExceptionHandler;
 use Hyperf\HttpMessage\Stream\SwooleStream;
+use KenCore\Exception\ServiceException;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
 
