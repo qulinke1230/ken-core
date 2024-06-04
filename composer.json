@@ -1,12 +1,12 @@
 {
-  "name": "ken/ken-core",
+  "name": "linke/ken-core",
   "license": "MIT",
   "keywords": [
     "php",
     "ken-core",
     "hyperf"
   ],
-  "description": "ken/ken-core",
+  "description": "linke/ken-core",
   "autoload": {
     "psr-4": {
       "KenCore\\": "src/"
