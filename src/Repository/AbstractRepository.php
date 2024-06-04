@@ -3,10 +3,12 @@
 namespace KenCore\Repository;
 
 use KenCore\Model\BaseModel;
+use KenCore\Traits\RepositoryTraits;
 
 abstract class AbstractRepository
 {
 
+    use RepositoryTraits;
 
     /**
      * 获取当前模型
