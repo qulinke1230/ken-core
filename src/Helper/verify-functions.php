@@ -15,6 +15,7 @@ if (!function_exists('checkMobile')) {
      * Author: 重设人生 <573914456@qq.com>
      * DataTime: 2021/6/26 3:14
      * @param $value
+     * @param $countryCode
      * @return false|int
      */
     function checkMobile($value,$countryCode = '86')
