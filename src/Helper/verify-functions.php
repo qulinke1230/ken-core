@@ -11,15 +11,26 @@
 
 if (!function_exists('checkMobile')) {
     /**
-     * Notes:验证手机号
+     * Notes: 验证手机号【国内国外手机号】
      * Author: 重设人生 <573914456@qq.com>
      * DataTime: 2021/6/26 3:14
      * @param $value
      * @return false|int
      */
-    function checkMobile($value)
+    function checkMobile($value,$countryCode = '86')
     {
-        return preg_match("/^1[3-9]\d{9}$/", $value);
+        //return preg_match("/^1[3-9]\d{9}$/", $value);
+        $fullPhone = '+' . $countryCode . $value;
+        try {
+            $phoneNumberUtil = \libphonenumber\PhoneNumberUtil::getInstance();
+            $phoneNumberObject = $phoneNumberUtil->parse($fullPhone);
+            if ($phoneNumberUtil->isValidNumber($phoneNumberObject)) {
+                return true;
+            }
+            return false;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }
 

@@ -36,7 +36,8 @@
     "phpstan/phpstan": "^0.12",
     "phpunit/phpunit": ">=7.0",
     "swoole/ide-helper": "dev-master",
-    "symfony/var-dumper": "^5.1"
+    "symfony/var-dumper": "^5.1",
+    "giggsey/libphonenumber-for-php": "^8.13"
   },
   "config": {
     "sort-packages": true
