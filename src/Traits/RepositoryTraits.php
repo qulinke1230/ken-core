@@ -142,7 +142,9 @@ trait RepositoryTraits
      */
     public function save(array $data)
     {
-        return $this->getModel()::create($data);
+        $this->filterExecuteAttributes($data, $this->getModel()->incrementing);
+        $model = $this->getModel()::create($data);
+        return $model->{$model->getKeyName()};
     }
 
     /**
@@ -177,7 +179,8 @@ trait RepositoryTraits
         } else {
             $where = [is_null($key) ? $this->getPk() : $key => $id];
         }
-        return $this->getModel()->where($where)->update($data);
+        $this->filterExecuteAttributes($data, true);
+        return $this->getModel()::query()->where($where)->update($data);
     }
 
     /**
@@ -209,4 +212,22 @@ trait RepositoryTraits
     }
 
 
+
+    /**
+     * 过滤新增或写入不存在的字段.
+     */
+    public function filterExecuteAttributes(array &$data, bool $removePk = false): void
+    {
+        $model = $this->getModel();
+        $attrs = $model->getFillable();
+        foreach ($data as $name => $val) {
+            if (! in_array($name, $attrs)) {
+                unset($data[$name]);
+            }
+        }
+        if ($removePk && isset($data[$model->getKeyName()])) {
+            unset($data[$model->getKeyName()]);
+        }
+        $model = null;
+    }
 }

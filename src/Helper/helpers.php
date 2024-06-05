@@ -1445,12 +1445,12 @@ if (!function_exists('lang')) {
      * 获取国际化语言
      * @return bool
      */
-    function lang($key, $lang = '')
+    function lang($key, $lang = '', $replace = [])
     {
         if (empty($lang)) {
             $lang = request()->getHeader('lang')[0] ?? 'cn';
         }
-        return trans("messages.$key", [], $lang);
+        return trans("messages.$key", $replace, $lang);
     }
 }
 
