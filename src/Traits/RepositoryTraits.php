@@ -64,7 +64,7 @@ trait RepositoryTraits
      */
     public function getListById(array $ids, array $columns = ['*'])
     {
-        $data = self::query()->whereIn($this->getKeyName(), $ids)
+        $data = $this->getModel()::query()->whereIn($this->getKeyName(), $ids)
             ->select($columns)
             ->get();
         $data || $data = collect([]);

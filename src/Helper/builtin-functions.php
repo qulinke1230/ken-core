@@ -16,6 +16,7 @@ use Swoole\Websocket\Frame;
 use Swoole\WebSocket\Server as WebSocketServer;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use KenCore\Exception\ServiceException;
 
 
 /**
@@ -159,5 +160,36 @@ if (! function_exists('event')) {
     function event(object $dispatch): object
     {
         return container()->get(EventDispatcherInterface::class)->dispatch($dispatch);
+    }
+}
+
+
+/**
+ * 验证的RequestInterface
+ */
+
+if (!function_exists('validatorFactoryInterface')) {
+    function validatorFactoryInterface()
+    {
+        return container()->get(Hyperf\Validation\Contract\ValidatorFactoryInterface::class);
+    }
+}
+
+
+if (!function_exists('validateRequest')) {
+    /**
+     * 验证数据
+     */
+    function validateRequest($request, array $data)
+    {
+        $validate = container()->get($request);
+        $validator = validatorFactoryInterface()->make(
+            $data,
+            $validate->rules(),
+            $validate->messages()
+        );
+        if ($validator->fails()) {
+            throw new ServiceException($validator->errors()->first());
+        }
     }
 }
