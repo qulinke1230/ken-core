@@ -64,7 +64,7 @@ trait RepositoryTraits
      */
     public function getListById(array $ids, array $columns = ['*'])
     {
-        $data = $this->getModel()::query()->whereIn($this->getKeyName(), $ids)
+        $data = $this->getModel()::query()->whereIn($this->getPk(), $ids)
             ->select($columns)
             ->get();
         $data || $data = collect([]);
@@ -211,6 +211,18 @@ trait RepositoryTraits
         return $this->getModel()::query()->where($where)->decrement($column, $num);
     }
 
+
+    /**
+     * Notes: 删除数据
+     * Author: 重设人生 <573914456@qq.com>
+     * DataTime: 2024/7/2 15:55
+     * @param array $where
+     * @return int|mixed
+     */
+    public function delete(array $where)
+    {
+        return $this->getModel()::query()->where($where)->delete();
+    }
 
 
     /**
